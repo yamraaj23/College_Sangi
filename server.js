@@ -142,7 +142,30 @@ const files = {
 
 // --- Encrypted JSON store (file-backed) ---
 const ENC_PATH = path.join(__dirname, 'campus_hub.enc');
-const DB_KEY = process.env.DB_KEY || 'campus_hub_secret_key';
+// Automatic DB_KEY management: prefer env var, then .env file, otherwise generate and persist locally
+const ENV_PATH = path.join(__dirname, '.env');
+let DB_KEY = process.env.DB_KEY;
+if (!DB_KEY) {
+  try {
+    if (fs.existsSync(ENV_PATH)) {
+      const envRaw = fs.readFileSync(ENV_PATH, 'utf8');
+      const m = envRaw.match(/DB_KEY=(.+)/);
+      if (m) DB_KEY = m[1].trim();
+    }
+  } catch (e) {
+    console.error('Failed to read .env for DB_KEY', e);
+  }
+}
+if (!DB_KEY) {
+  // Generate a strong random key and persist to .env with restrictive permissions
+  DB_KEY = crypto.randomBytes(32).toString('hex'); // 256-bit key
+  try {
+    fs.writeFileSync(ENV_PATH, `DB_KEY=${DB_KEY}\n`, { mode: 0o600 });
+    console.log('Generated and saved DB_KEY to .env (ignored by git)');
+  } catch (e) {
+    console.error('Failed to write .env for DB_KEY', e);
+  }
+}
 const ENC_ALGO = 'aes-256-gcm';
 
 function _deriveKey(secret) {

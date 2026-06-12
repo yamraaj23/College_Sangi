@@ -27,6 +27,8 @@ Deployment checklist
 
 - Remove any local data and ensure `campus_hub.enc` and `server_data/` are not committed (they are ignored via `.gitignore`).
 - Provide a strong secret for `DB_KEY` via environment variables or a secrets manager; do NOT hardcode it in `server.js`.
+ - Provide a strong secret for `DB_KEY` via environment variables or a secrets manager; do NOT hardcode it in `server.js`.
+ - If `DB_KEY` is not provided, the server will automatically generate a strong key on first run and store it in a local `.env` file (which is ignored by git). For production, prefer providing the key via environment or a secrets manager rather than relying on the generated key.
 - Install production dependencies and run with `NODE_ENV=production`.
 
 Example (Linux/mac):
