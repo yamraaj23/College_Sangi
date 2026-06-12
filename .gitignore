@@ -1,0 +1,5 @@
+node_modules/
+campus_hub.enc
+.env
+npm-debug.log
+package-lock.json
