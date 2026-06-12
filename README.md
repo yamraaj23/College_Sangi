@@ -20,8 +20,8 @@ npm start
 
 Notes
 
-- Data is stored in `server_data/` as JSON files.
-- This is a minimal development server. For production, replace with a proper database and authentication.
+- Data is stored in an encrypted local store (`campus_hub.enc`). The server still supports legacy file-based storage under `server_data/` when present.
+- This is a minimal development server. For production, replace with a managed database and a secure secret manager for `DB_KEY`.
 
 LAN Access
 
