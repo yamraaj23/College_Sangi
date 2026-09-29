@@ -1,4 +1,12 @@
 {
+  {
+  "owner": "yamraaj23",
+  "repo": "College_Sangi",
+  "path": "package.json",
+  "content": "{\n  \"name\": \"college-sangi\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Simple file-backed API for College Sangi (local development)\",\n  \"main\": \"server.js\",\n  \"scripts\": {\n    \"start\": \"node server.js\",\n    \"client\": \"npm --prefix client run dev\",\n    \"build:client\": \"npm --prefix client run build\"\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"dependencies\": {\n    \"bcrypt\": \"^6.0.0\",\n    \"express\": \"^4.18.2\"\n  },\n  \"devDependencies\": {\n    \"@playwright/test\": \"^1.63.0\"\n  },\n  \"allowScripts\": {\n    \"bcrypt\": true\n  }\n}\n",
+  "message": "Add allowScripts config for bcrypt to fix install script warnings on Vercel",
+  "sha": "aa805ad2eebdc74ae5361d6c629f348670a6b114"
+}
   "name": "college-sangi",
   "version": "1.0.0",
   "description": "Simple file-backed API for College Sangi (local development)",
