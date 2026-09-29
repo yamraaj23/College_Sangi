@@ -1,0 +1,387 @@
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.15s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card:active {
+            transform: scale(0.97);
+            opacity: 0.95;
+        }
+
+        .product-image {
+            height: 160px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-card.sold {
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .product-card .sold-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #e74c3c;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 20;
+        }
+        .product-info {
+            padding: 12px;
+        }
+
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .product-price {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-light);
+            font-size: 0.75rem;
+        }
+
+        /* Events Section */
+        .events-section {
+            padding: 0 0 20px 0;
+            background-color: white;
+        }
+
+        .events-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding-right: 8px;
+        }
+
+
+
+/* Product preview modal, marketplace filters */
+        .product-preview-modal .modal-content {
+            max-width: 550px;
+        }
+
+        .product-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .product-preview-image {
+            height: 220px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .product-preview-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .product-preview-image i {
+            font-size: 3.5rem;
+            color: var(--text-light);
+        }
+
+        .product-preview-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .product-preview-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .product-preview-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .product-preview-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        .product-preview-description {
+            margin-top: 8px;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .product-preview-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        /* NEW: Enhanced Edit and Delete Button Styles */
+        .post-actions-owner,
+        .product-actions-owner,
+        .event-actions-owner,
+        .question-actions-owner {
+            display: flex;
+            gap: 8px;
+        }
+
+        .edit-btn, .delete-btn,
+        .edit-comment-btn, .delete-comment-btn {
+            padding: 6px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            min-width: 40px;
+            min-height: 40px;
+        }
+
+        .edit-btn, .edit-comment-btn {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .edit-btn:hover, .edit-comment-btn:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .edit-btn:active, .edit-comment-btn:active {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+
+        .delete-btn, .delete-comment-btn {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .delete-btn:hover, .delete-comment-btn:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+
+        .delete-btn:active, .delete-comment-btn:active {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+
+        /* Comment action buttons */
+        .comment-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed #ddd;
+        }
+
+        .comment-actions button {
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            border-radius: 3px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            min-width: 40px;
+            min-height: 40px;
+        }
+
+        .comment-actions button:active {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+
+        .edit-comment-btn {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .edit-comment-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .delete-comment-btn {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .delete-comment-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* Edited indicator */
+        .post-date.edited:after,
+        .comment-date.edited:after,
+        .product-date.edited:after {
+            content: " (edited)";
+            color: var(--text-light);
+            font-style: italic;
+            font-size: 0.8em;
+        }
+
+        /* Modal styles for edit forms */
+        .edit-post-modal .modal-content,
+        .edit-product-modal .modal-content,
+        .edit-event-modal .modal-content,
+        .edit-question-modal .modal-content {
+            max-width: 550px;
+        }
+
+        /* Delete Question Confirmation Dialog */
+        .delete-question-dialog {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .delete-question-dialog.active {
+            display: flex;
+        }
+
+        .delete-question-content {
+            background-color: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .delete-question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .delete-question-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #ffe6e6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-right: 15px;
+        }
+
+        .delete-question-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e74c3c;
+        }
+
+        .delete-question-body {
+            margin-bottom: 25px;
+        }
+
+        .delete-question-message {
+            color: #333;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .delete-question-sub-message {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .delete-question-footer {
+            display: flex;
+            gap: 10px;
+        }
+
+        .delete-question-cancel-btn,
+        .delete-question-delete-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .delete-question-cancel-btn {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .delete-question-cancel-btn:hover {
+            background-color: #e5e5e5;
+        }
+
+        .delete-question-delete-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .delete-question-delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* NEW: Question Bank Styles */
