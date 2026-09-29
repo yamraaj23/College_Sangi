@@ -1,0 +1,182 @@
+<section class="contact-us-section">
+    <div class="container">
+        <a href="#" class="contact-back-btn" id="contactBackBtn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+        <div class="contact-us-content">
+            <h1>Contact Us - College Sangi</h1>
+            <p class="section-subtitle">We'd love to hear from you. Get in touch with us today!</p>
+            
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form-section">
+                    <h2>Send us a Message</h2>
+                    <form id="contactForm" class="contact-form">
+                        <div id="contactFormMessage" class="form-message" style="display: none; margin-bottom: 15px; padding: 12px; border-radius: 6px; font-weight: 500;"></div>
+                        
+                        <div class="form-group">
+                            <label for="contactName">Name <span style="color: #e74c3c;">*</span></label>
+                            <input type="text" id="contactName" class="form-control" placeholder="Your full name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactEmail">Email <span style="color: #e74c3c;">*</span></label>
+                            <input type="email" id="contactEmail" class="form-control" placeholder="your.email@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactSubject">Subject <span style="color: #e74c3c;">*</span></label>
+                            <input type="text" id="contactSubject" class="form-control" placeholder="What is this about?" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactMessage">Message <span style="color: #e74c3c;">*</span></label>
+                            <textarea id="contactMessage" class="form-control" rows="5" placeholder="Tell us how we can help..." required></textarea>
+                            <small style="color: #7f8c8d; margin-top: 5px; display: block;">Character count: <span id="charCount">0</span>/1000</small>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" id="contactSubmitBtn">Send Message</button>
+                    </form>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="contact-info-section">
+                    <h2>Contact Information</h2>
+                    
+                    <div class="contact-items-grid">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Address</h3>
+                                <p>Campus Chowk<br>Janakpur, Nepal 45600</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Phone</h3>
+                                <p>+977-9807627575</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Email</h3>
+                                <p>support@collegesangi.net<br>info@collegesangi.net</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Business Hours</h3>
+                                <p>Sunday - Friday: 10:00 AM - 5:00 PM<br>Saturday: Closed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Departments -->
+            <div class="departments-section">
+                <h2>Get in Touch With Specific Departments</h2>
+                
+                <div class="departments-grid">
+                    <div class="department-card" data-email="support@collegesangi.net" onclick="copyToClipboard('support@collegesangi.net', event)">
+                        <h3>Support Team</h3>
+                        <p>For technical issues and account support</p>
+                        <p><strong>Email:</strong> support@collegesangi.net</p>
+                        <small style="color: #3498db; margin-top: 10px; display: block; cursor: pointer;">📋 Click to copy email</small>
+                    </div>
+                    
+                    <div class="department-card" data-email="community@collegesangi.net" onclick="copyToClipboard('community@collegesangi.net', event)">
+                        <h3>Community Team</h3>
+                        <p>For community guidelines and moderation</p>
+                        <p><strong>Email:</strong> community@collegesangi.net</p>
+                        <small style="color: #3498db; margin-top: 10px; display: block; cursor: pointer;">📋 Click to copy email</small>
+                    </div>
+                    
+                    <div class="department-card" data-email="privacy@collegesangi.net" onclick="copyToClipboard('privacy@collegesangi.net', event)">
+                        <h3>Privacy Team</h3>
+                        <p>For privacy and data protection concerns</p>
+                        <p><strong>Email:</strong> privacy@collegesangi.net</p>
+                        <small style="color: #3498db; margin-top: 10px; display: block; cursor: pointer;">📋 Click to copy email</small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Social Media -->
+            <div class="social-media-section">
+                <h2>Follow Us on Social Media</h2>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/share/1DDTTfXxaZ/" target="_blank" class="social-link">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </a>
+                    <a href="https://x.com/ShivPrasad96272" target="_blank" class="social-link">
+                        <svg viewBox="0 0 32 32" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block;">
+                            <rect width="32" height="32" fill="none"/>
+                            <path d="M7 7L25 25M25 7L7 25" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                        <span>X (Twitter)</span>
+                    </a>
+                    <a href="https://www.instagram.com/shiv.prasad2647?igsh=bTZ3YXZheWhrOHE5" target="_blank" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/shiv-prasad-1207b8177?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- FAQ -->
+            <div class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-header">
+                        <h3>What is the average response time?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <p class="faq-content">We typically respond to emails within 24 business hours. For urgent issues, please call us directly.</p>
+                </div>
+                
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-header">
+                        <h3>Do you have a physical office I can visit?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <p class="faq-content">Yes! Visit us at Campus Chowk, Janakpur, Nepal. Please call ahead to schedule a visit.</p>
+                </div>
+                
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-header">
+                        <h3>Can I schedule a call with someone?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <p class="faq-content">Absolutely! Email us your preferred time and we'll arrange a call with the appropriate team member.</p>
+                </div>
+                
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-header">
+                        <h3>Do you offer live chat support?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <p class="faq-content">Currently, we support contact via email, phone, and our contact form. Live chat will be available soon!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

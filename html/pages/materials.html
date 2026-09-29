@@ -1,0 +1,113 @@
+<section class="forum-section">
+    <div class="container">
+        <h2 class="section-title">Study Materials</h2>
+        
+        <!-- Filters Row -->
+        <div class="form-row" style="margin-bottom: 15px; display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
+            <div class="form-group" style="flex: 2; min-width: 200px;">
+                <label for="materialsSearchInput">Search Title / Description</label>
+                <input id="materialsSearchInput" type="text" class="form-control" placeholder="Search study materials..." />
+            </div>
+
+            <div class="form-group" style="flex: 1; min-width: 180px;">
+                <label for="materialsUniversityInput">University</label>
+                <div class="filter-input-wrapper">
+                    <input id="materialsUniversityInput" type="text" class="form-control" placeholder="Type to filter universities..." />
+                    <div id="materialsUniversityDropdown" class="filter-dropdown-list"></div>
+                </div>
+            </div>
+            
+            <div class="form-group" style="flex: 1; min-width: 150px;">
+                <label for="materialsCourseInput">Course</label>
+                <div class="filter-input-wrapper">
+                    <input id="materialsCourseInput" type="text" class="form-control" placeholder="Type to filter courses..." />
+                    <div id="materialsCourseDropdown" class="filter-dropdown-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 20px;">
+            <button class="btn btn-primary" id="uploadMaterialBtn">
+                <i class="fas fa-plus"></i> Upload Study Material
+            </button>
+        </div>
+        
+        <!-- Materials Grid -->
+        <div class="materials-grid" id="materialsContainer">
+            <!-- Materials cards will be dynamically loaded here -->
+        </div>
+        
+        <!-- Empty State -->
+        <div id="emptyMaterialsMessage" style="text-align: center; padding: 35px; color: var(--text-light); display: none;">
+            <i class="fas fa-folder-open" style="font-size: 2.8rem; margin-bottom: 12px;"></i>
+            <h3>No Materials Available</h3>
+            <p>Be the first to share your notes or reference books!</p>
+        </div>
+    </div>
+</section>
+
+<!-- Upload Material Dialog -->
+<div class="dialog-overlay" id="uploadMaterialDialog">
+    <div class="dialog-box" style="max-width: 600px;">
+        <div class="dialog-header">
+            <h3 class="dialog-title">Upload Study Material</h3>
+            <button class="dialog-close" id="closeMaterialDialog">&times;</button>
+        </div>
+        <div class="dialog-body">
+            <form id="uploadMaterialForm">
+                <div class="form-group">
+                    <label for="materialTitle">Title</label>
+                    <input type="text" id="materialTitle" class="form-control" placeholder="Enter a title (e.g. Physics I Lecture Notes)" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="materialDescription">Description</label>
+                    <textarea id="materialDescription" class="form-control" rows="3" placeholder="Describe the material..." style="resize: vertical;"></textarea>
+                </div>
+                
+                <div class="form-row" style="display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap;">
+                    <div class="form-group" style="flex: 1; min-width: 200px;">
+                        <label for="materialUniversity">University</label>
+                        <div class="filter-input-wrapper">
+                            <input id="materialUniversity" type="text" class="form-control" placeholder="Search university..." required>
+                            <div id="materialUniversityDropdown" class="filter-dropdown-list"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="flex: 1; min-width: 200px;">
+                        <label for="materialCourse">Course</label>
+                        <div class="filter-input-wrapper">
+                            <input id="materialCourse" type="text" class="form-control" placeholder="Search course..." required>
+                            <div id="materialCourseDropdown" class="filter-dropdown-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Select File (PDF or Image)</label>
+                    <div class="file-dropzone" id="fileDropzone" style="border: 2px dashed #3498db; border-radius: 8px; padding: 25px; text-align: center; cursor: pointer; background: #fafafa; transition: background 0.3s ease;">
+                        <input type="file" id="materialFile" accept="image/*,application/pdf" style="display: none;" required />
+                        <div id="dropzoneContent">
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 2.5rem; color: #3498db; margin-bottom: 10px;"></i>
+                            <p style="margin: 0; font-weight: 500;">Drag & drop your file here, or <span style="color: #3498db;">browse</span></p>
+                            <small style="color: var(--text-light);">Supports PDF, PNG, JPG, JPEG (No size limit)</small>
+                        </div>
+                        <div id="filePreview" style="display: none; align-items: center; justify-content: center; gap: 15px; text-align: left;">
+                            <i id="previewIcon" class="fas fa-file-pdf" style="font-size: 3rem; color: #e74c3c;"></i>
+                            <div>
+                                <h4 id="previewName" style="margin: 0 0 4px; font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 300px;">File Name</h4>
+                                <span id="previewSize" style="font-size: 0.8rem; color: var(--text-light);">0 KB</span>
+                            </div>
+                            <button type="button" id="removeFileBtn" class="btn btn-outline" style="min-height: auto; padding: 6px 12px; border-color: var(--accent); color: var(--accent); margin-left: auto;">Remove</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions" style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px;">
+                    <button type="button" class="btn btn-outline" id="cancelMaterialUpload">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="submitMaterialUpload">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

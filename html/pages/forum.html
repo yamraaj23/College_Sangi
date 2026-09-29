@@ -1,0 +1,91 @@
+<section class="forum-section">
+    <div class="container">
+        <h2 class="section-title">Course Forum</h2>
+        
+        <!-- University and Course Filters for Forum -->
+        <div class="marketplace-filters" style="margin-bottom: 15px;">
+            <div class="form-group" style="margin-bottom: 15px; min-width: 200px;">
+                <label for="forumUniversityInput">University</label>
+                <div class="filter-input-wrapper">
+                    <input id="forumUniversityInput" type="text" class="form-control" placeholder="Type to filter universities..." />
+                    <div id="forumUniversityDropdown" class="filter-dropdown-list"></div>
+                </div>
+            </div>
+            
+            <div class="form-group" style="margin-bottom: 15px; min-width: 150px;">
+                <label for="forumCourseInput">Course</label>
+                <div class="filter-input-wrapper">
+                    <input id="forumCourseInput" type="text" class="form-control" placeholder="Type to filter courses..." />
+                    <div id="forumCourseDropdown" class="filter-dropdown-list"></div>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 15px; display: flex; align-items: flex-end; margin-left: auto;">
+                <button class="btn btn-primary" id="newPostBtn">New Post</button>
+            </div>
+        </div>
+        
+        <div class="forum-container">
+            <div class="forum-posts" id="forumPosts">
+                <!-- Posts will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Add Post Dialog -->
+<div class="dialog-overlay" id="addPostDialog">
+    <div class="dialog-box">
+        <div class="dialog-header">
+            <h3 class="dialog-title">Create New Post</h3>
+            <button class="dialog-close" id="closePostDialog">&times;</button>
+        </div>
+        <div class="dialog-body">
+            <form id="addPostForm">
+                <div class="form-group">
+                    <label for="postTitle">Post Title</label>
+                    <input type="text" id="postTitle" class="form-control" placeholder="Enter post title" required>
+                </div>
+                <div class="form-group">
+                    <label for="postUniversity">University</label>
+                    <div class="filter-input-wrapper">
+                        <input id="postUniversity" type="text" class="form-control" placeholder="Type or select university" required />
+                        <div id="postUniversityDropdown" class="filter-dropdown-list"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="postCourse">Course</label>
+                    <div class="filter-input-wrapper">
+                        <input id="postCourse" type="text" class="form-control" placeholder="Type or select course" required />
+                        <div id="postCourseDropdown" class="filter-dropdown-list"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="postContent">Post Content</label>
+                    <textarea id="postContent" class="form-control" placeholder="Write your post content here..." required></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="dialog-footer">
+            <button class="btn btn-outline" id="cancelPost">Cancel</button>
+            <button class="btn btn-primary" id="submitPost">Publish Post</button>
+        </div>
+    </div>
+</div>
+<!-- Delete Post Confirmation Dialog -->
+<div id="deletePostConfirmDialog" class="delete-confirm-dialog">
+    <div class="delete-confirm-content">
+        <div class="delete-confirm-header">
+            <div class="delete-confirm-icon">⚠️</div>
+            <div class="delete-confirm-title">Delete Post?</div>
+        </div>
+        <div class="delete-confirm-body">
+            <p class="delete-confirm-message">Are you sure you want to delete this post?</p>
+            <p class="delete-confirm-sub-message">This action cannot be undone and all comments on this post will also be deleted.</p>
+        </div>
+        <div class="delete-confirm-footer">
+            <button class="delete-confirm-cancel-btn" id="deletePostCancelBtn">Cancel</button>
+            <button class="delete-confirm-delete-btn" id="deletePostConfirmBtn">Delete</button>
+        </div>
+    </div>
+</div>

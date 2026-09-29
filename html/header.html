@@ -1,0 +1,47 @@
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo" id="logoLink" style="cursor: pointer;">
+                <img src="images/logo.svg" alt="College Sangi logo" class="app-logo">
+                <span>College Sangi</span>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active" data-page="home">Home</a></li>
+                    <li><a href="#" data-page="forum">Forum</a></li>
+                    <li><a href="#" data-page="events">Events</a></li>
+                    <li><a href="#" data-page="marketplace">Marketplace</a></li>
+                    <li><a href="#" data-page="questionBank">Question Bank</a></li>
+                    <li><a href="#" data-page="materials">Materials</a></li>
+                    <li><a href="#" id="profileLink" data-page="profile">My Profile</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <!-- Notification Bell -->
+                <div class="notification-bell" id="notificationBell">
+                    <i class="fas fa-bell"></i>
+                    <div class="notification-badge" id="notificationBadge"></div>
+                </div>
+                <button type="button" class="btn btn-outline" id="logoutBtn" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Notification Dropdown -->
+<div class="notification-dropdown" id="notificationDropdown">
+    <div class="notification-header">
+        <h4>Notifications</h4>
+        <button id="markAllRead" class="mark-read-btn" style="display: none;">Mark all as read</button>
+    </div>
+    <div class="notification-list" id="notificationList">
+        <!-- Notifications will be dynamically loaded here -->
+    </div>
+    <div class="notification-actions">
+        <button class="view-all-btn" id="viewAllNotifications">View All</button>
+        <button class="clear-all-btn" id="clearAllNotifications">Clear All</button>
+    </div>
+</div>

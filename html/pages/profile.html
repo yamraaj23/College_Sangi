@@ -1,0 +1,236 @@
+<section class="profile-section">
+    <div class="container">
+        <h2 class="section-title" id="profilePageTitle">My Profile</h2>
+        <div class="profile-container">
+            <div class="profile-sidebar">
+                <div class="profile-avatar" id="profileAvatar">
+                    <!-- Avatar will be dynamically loaded here -->
+                    <div class="avatar-placeholder" id="avatarPlaceholder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="avatar-upload" id="avatarUploadBtn" style="display: none;">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <input type="file" id="avatarFileInput" accept="image/*" style="display:none" />
+                </div>
+                <h2 class="profile-name" id="profileName"></h2>
+                <p class="profile-course" id="profileCourse"></p>
+                <p class="profile-email" id="profileEmail"></p>
+                
+                <div class="profile-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="postsCount">0</div>
+                        <div class="stat-label">Posts</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="productsCount">0</div>
+                        <div class="stat-label">Products</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="eventsCount">0</div>
+                        <div class="stat-label">Events</div>
+                    </div>
+                </div>
+                
+                <div class="profile-actions">
+                    <button class="btn" id="editProfileBtn" style="display: none;">Edit Profile</button>
+                    <button class="btn" id="deleteProfileBtn" style="display: none; background-color: #e74c3c; margin-top: 10px;">Delete Profile</button>
+                </div>
+            </div>
+            
+            <div class="profile-content">
+                <div class="profile-tabs">
+                    <button class="profile-tab active" data-tab="info">Personal Info</button>
+                    <button class="profile-tab" data-tab="activity">Activity</button>
+                    <button class="profile-tab" data-tab="settings" style="display: none;" id="settingsTabBtn">Settings</button>
+                </div>
+                
+                <div class="tab-content active" id="infoTab">
+                    <h3>Personal Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Full Name</div>
+                            <div class="info-value" id="infoFullName"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Email</div>
+                            <div class="info-value" id="infoEmail"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Course</div>
+                            <div class="info-value" id="infoCourse">BCA</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">University</div>
+                            <div class="info-value" id="infoUniversity">Tribhuvan University</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Member Since</div>
+                            <div class="info-value" id="infoJoinDate">October 2023</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Location</div>
+                            <div class="info-value" id="infoLocation">Not specified</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Bio</div>
+                            <div class="info-value" id="infoBio">No bio added yet.</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Information Section -->
+                    <h3 style="margin-top: 25px;">Contact Information</h3>
+                    <div class="contact-info" id="contactInfo">
+                        <!-- Contact items will be dynamically loaded here -->
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="activityTab">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-list" id="activityList">
+                        <!-- Activity items will be dynamically loaded here -->
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="settingsTab">
+                    <h3>Account Settings</h3>
+                    <form class="settings-form" id="settingsForm">
+                        <div class="form-group">
+                            <label for="settingsFirstName">First Name</label>
+                            <input type="text" id="settingsFirstName" class="form-control" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsLastName">Last Name</label>
+                            <input type="text" id="settingsLastName" class="form-control" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsEmail">Email</label>
+                            <input type="email" id="settingsEmail" class="form-control" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsUniversity">University</label>
+                            <select id="settingsUniversity" class="form-control">
+                                <option value="Tribhuvan University">Tribhuvan University</option>
+                                <option value="Kathmandu University">Kathmandu University</option>
+                                <option value="Purbanchal University">Purbanchal University</option>
+                                <option value="Pokhara University">Pokhara University</option>
+                                <option value="Lumbini Buddhist University">Lumbini Buddhist University</option>
+                                <option value="Agriculture and Forestry University">Agriculture and Forestry University</option>
+                                <option value="Nepal Sanskrit University">Nepal Sanskrit University</option>
+                                <option value="Far-Western University">Far-Western University</option>
+                                <option value="Mid Western University">Mid Western University</option>
+                                <option value="Nepal Open University">Nepal Open University</option>
+                                <option value="Rajarshi Janak University">Rajarshi Janak University</option>
+                                <option value="Madan Bhandari University">Madan Bhandari University</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsCourse">Course</label>
+                            <select id="settingsCourse" class="form-control">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsLocation">Location</label>
+                            <input type="text" id="settingsLocation" class="form-control" placeholder="Enter your location">
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsBio">Bio</label>
+                            <textarea id="settingsBio" class="form-control" rows="3" placeholder="Tell us about yourself"></textarea>
+                        </div>
+                        
+                        <!-- Contact Settings -->
+                        <h4 style="margin-top: 25px; margin-bottom: 12px;">Contact Settings</h4>
+                        <div class="form-group">
+                            <label for="settingsMobile">Mobile Number</label>
+                            <input type="tel" id="settingsMobile" class="form-control" placeholder="Enter your mobile number">
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsWhatsApp">WhatsApp Link</label>
+                            <input type="url" id="settingsWhatsApp" class="form-control" placeholder="Enter your WhatsApp link">
+                        </div>
+                        <div class="form-group">
+                            <label>Privacy Settings</label>
+                            <div class="privacy-toggle">
+                                <input type="checkbox" id="settingsContactPrivacy">
+                                <label for="settingsContactPrivacy"></label>
+                                <span class="privacy-text">Make contact information public</span>
+                            </div>
+                            <small class="privacy-text">When enabled, other users can see your mobile number and WhatsApp link</small>
+                        </div>
+                        
+                        <!-- Notification Settings -->
+                        <h4 style="margin-top: 25px; margin-bottom: 12px;">Notification Settings</h4>
+                        <div class="form-group">
+                            <label>Notification Sound</label>
+                            <div class="privacy-toggle">
+                                <input type="checkbox" id="notificationSoundToggle" checked>
+                                <label for="notificationSoundToggle"></label>
+                                <span class="privacy-text">Enable notification sound</span>
+                            </div>
+                            <small class="privacy-text">When enabled, you'll hear a sound when you receive notifications</small>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" id="cancelSettings">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                        
+                        <div style="border-top: 1px solid #ddd; margin-top: 30px; padding-top: 20px;">
+                            <p style="color: #999; font-size: 0.85rem; margin: 0;">Account deletion options are available in your profile section.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Delete Profile Confirmation Modal -->
+<div id="deleteProfileModal" class="delete-profile-modal">
+    <div class="delete-modal-content">
+        <div class="delete-modal-header">
+            <div class="delete-modal-icon">⚠️</div>
+            <div class="delete-modal-title">Delete Account</div>
+        </div>
+        <div class="delete-modal-body">
+            <div class="delete-modal-message">
+                This action is <strong>permanent and cannot be undone</strong>. All your data will be deleted:
+            </div>
+            <ul style="margin: 10px 0 15px 20px; color: #666; font-size: 0.9rem; line-height: 1.6;">
+                <li>Your profile and all personal information</li>
+                <li>All forum posts and comments</li>
+                <li>All marketplace listings</li>
+                <li>All events and questions</li>
+            </ul>
+            <div class="delete-warning">
+                <strong>⚠️ Warning:</strong> Once deleted, your account cannot be recovered.
+            </div>
+            <div class="delete-input-group">
+                <label for="deleteEmailInput">Confirm your email address to proceed:</label>
+                <input type="email" id="deleteEmailInput" placeholder="Enter your email" />
+            </div>
+        </div>
+        <div class="delete-modal-footer">
+            <button class="delete-cancel-btn" id="deleteCancelBtn">Cancel</button>
+            <button class="delete-confirm-btn" id="deleteConfirmBtn" disabled>Delete My Account</button>
+        </div>
+    </div>
+</div>
+
+<!-- Final Confirmation Dialog -->
+<div id="finalDeleteConfirmDialog" class="final-delete-confirm-dialog">
+    <div class="final-delete-confirm-content">
+        <div class="final-delete-confirm-header">
+            <div class="final-delete-icon">⚠️</div>
+            <div class="final-delete-title">Final Confirmation</div>
+        </div>
+        <div class="final-delete-confirm-body">
+            <p class="final-delete-message">Are you absolutely sure you want to permanently delete your account?</p>
+            <p class="final-delete-sub-message">This action cannot be undone and all your data will be lost forever.</p>
+        </div>
+        <div class="final-delete-confirm-footer">
+            <button class="final-delete-cancel-btn" id="finalDeleteCancelBtn">Cancel</button>
+            <button class="final-delete-confirm-btn" id="finalDeleteConfirmBtn">Yes, Delete Everything</button>
+        </div>
+    </div>
+</div>
