@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="College Sangi">
+    <meta name="theme-color" content="#2c3e50">
+    <title>College Sangi - University Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Mobile optimization script -->
+    <script>
+        // Mobile detection and optimization
+        (function() {
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const isTouchDevice = () => (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+            
+            // Set data attributes for CSS
+            document.documentElement.setAttribute('data-mobile', isMobile);
+            document.documentElement.setAttribute('data-ios', isIOS);
+            document.documentElement.setAttribute('data-touch', isTouchDevice());
+            
+            // Prevent bounce scroll on iOS
+            if (isIOS) {
+                document.addEventListener('touchmove', function(e) {
+                    if (e.target.closest('[data-scroll-lock]') === null) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+            }
+            
+            // Fast click implementation for mobile
+            if (isTouchDevice()) {
+                document.addEventListener('touchstart', function(e) {
+                    if (e.target.closest('button, a, input, select, textarea')) {
+                        e.target.closest('button, a, input, select, textarea').classList.add('touching');
+                    }
+                }, { passive: true });
+                
+                document.addEventListener('touchend', function(e) {
+                    document.querySelectorAll('.touching').forEach(el => el.classList.remove('touching'));
+                }, { passive: true });
+            }
+        })();
+    </script>
+    <!-- jsPDF Library for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- Mobile Configuration Module - Load before other scripts -->
+    <script src="js/mobile-config.js"></script>
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="login-container" id="loginPage">
+        <div class="login-card">
+            <div class="login-left">
+                <div class="login-panel">
+                    <h2>Sign In</h2>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon google" title="Continue with Google"><i class="fab fa-google"></i></a>
+                        <a href="#" class="social-icon facebook" title="Continue with Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon github" title="Continue with GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+
+                    <form id="loginForm" class="login-form">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="password" class="form-control" placeholder="Password" required>
+                                <button type="button" class="password-toggle" aria-label="Toggle password visibility"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-options">
+                            <div class="remember-me">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">Remember me</label>
+                            </div>
+                            <a href="#" class="forgot-password" onclick="openForgotPasswordModal(event)">Forget Your Password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary">SIGN IN</button>
+                    </form>
+
+                    <div class="signup-link">
+                        Don't have an account? <a href="#" id="showSignupLink">Sign up here</a>
+                    </div>
+                </div>
+            </div>
+            <div class="login-right">
+                <div class="login-info-panel">
+                    <div class="login-info-header">
+                        <div class="login-logo">
+                            <img src="images/logo.svg" alt="College Sangi logo" class="app-logo-sm">
+                            <span>College Sangi</span>
+                        </div>
+                        <h2>Connect, Collaborate, Succeed</h2>
+                        <p>Your all-in-one platform for university life. Join course discussions, buy and sell textbooks, discover campus events, and connect with fellow students.</p>
+                    </div>
+                    <ul class="login-features">
+                        <li><i class="fas fa-check-circle"></i> Course Forums & Discussions</li>
+                        <li><i class="fas fa-check-circle"></i> Textbook Marketplace</li>
+                        <li><i class="fas fa-check-circle"></i> Campus Event Finder</li>
+                        <li><i class="fas fa-check-circle"></i> Student Community</li>
+                        <li><i class="fas fa-check-circle"></i> Question Bank with Photos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Website Content (hidden initially) -->
+    <div class="main-website" id="mainWebsite">
+        <!-- Header placeholder (will be loaded from header.html) -->
+        <header id="headerPlaceholder"></header>
+        
+        <!-- Notification Dropdown -->
+        <div class="notification-dropdown" id="notificationDropdown">
+            <div class="notification-header">
+                <h4>Notifications</h4>
+                <button id="markAllRead" class="mark-read-btn" style="display: none;">Mark all as read</button>
+            </div>
+            <div class="notification-list" id="notificationList"></div>
+            <div class="notification-actions">
+                <button class="view-all-btn" id="viewAllNotifications">View All</button>
+                <button class="clear-all-btn" id="clearAllNotifications">Clear All</button>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div id="homePage" class="page-content active"></div>
+        <div id="forumPage" class="page-content"></div>
+        <div id="eventsPage" class="page-content"></div>
+        <div id="marketplacePage" class="page-content"></div>
+        <div id="questionBankPage" class="page-content"></div>
+        <div id="materialsPage" class="page-content"></div>
+        <div id="profilePage" class="page-content"></div>
+        <div id="privacyPolicyPage" class="page-content"></div>
+        <div id="communityGuidelinesPage" class="page-content"></div>
+        <div id="termsOfServicePage" class="page-content"></div>
+        <div id="helpCenterPage" class="page-content"></div>
+        <div id="contactUsPage" class="page-content"></div>
+
+        <!-- Footer placeholder (will be loaded from footer.html) -->
+        <footer id="footerPlaceholder"></footer>
+    </div>
+
+    <!-- Dialogs & Modals -->
+    <!-- Forgot Password Modal -->
+    <div class="forgot-password-modal" id="forgotPasswordModal">
+        <div class="forgot-password-content">
+            <div class="forgot-password-header">
+                <h2>Forgot Password?</h2>
+                <p>No worries! We'll help you recover your account.</p>
+            </div>
+            <div id="forgotPasswordMsg"></div>
+            
+            <!-- Step 1: Email Verification -->
+            <div class="forgot-password-step active" id="step1-email">
+                <label for="resetEmail">Email Address</label>
+                <input type="email" id="resetEmail" class="forgot-password-input" placeholder="Enter your registered email">
+                <div class="forgot-password-buttons">
+                    <button class="forgot-password-btn secondary" onclick="closeForgotPasswordModal()">Cancel</button>
+                    <button class="forgot-password-btn primary" onclick="handleEmailVerification()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Reset Code -->
+            <div class="forgot-password-step" id="step2-code">
+                <label for="resetCode">Verification Code</label>
+                <input type="text" id="resetCode" class="forgot-password-input" placeholder="Enter the code sent to your email">
+                <small style="color: var(--text-light);">Check your email for a 4-digit code</small>
+                <div class="forgot-password-buttons">
+                    <button class="forgot-password-btn secondary" onclick="goBackToStep1()">Back</button>
+                    <button class="forgot-password-btn primary" onclick="handleCodeVerification()">Verify Code</button>
+                </div>
+            </div>
+
+            <!-- Step 3: New Password -->
+            <div class="forgot-password-step" id="step3-password">
+                <label for="newPassword">New Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="newPassword" class="forgot-password-input" placeholder="Enter new password">
+                    <button type="button" class="password-toggle" style="right: 0;"><i class="fas fa-eye"></i></button>
+                </div>
+                <label for="confirmNewPassword" style="margin-top: 15px;">Confirm Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="confirmNewPassword" class="forgot-password-input" placeholder="Confirm new password">
+                    <button type="button" class="password-toggle" style="right: 0;"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="forgot-password-buttons">
+                    <button class="forgot-password-btn secondary" onclick="goBackToStep2()">Back</button>
+                    <button class="forgot-password-btn primary" onclick="handlePasswordReset()">Reset Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dialog-overlay" id="addPostDialog"></div>
+    <div class="dialog-overlay" id="addTextbookDialog"></div>
+    <div class="dialog-overlay" id="addEventDialog"></div>
+    <div class="dialog-overlay" id="uploadQuestionDialog"></div>
+    <div class="dialog-overlay" id="uploadMaterialDialog"></div>
+    
+    <!-- Signup Page -->
+    <div class="signup-dialog-overlay" id="signupDialog">
+        <div class="signup-page-card">
+            <div class="signup-page-left">
+                <div class="signup-page-panel">
+
+                    <form id="signupDialogForm" class="signup-page-form">
+                        <div class="name-fields">
+                            <div class="form-group">
+                                <label for="dialogFirstName">First Name</label>
+                                <input type="text" id="dialogFirstName" class="form-control" placeholder="Enter first name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dialogLastName">Last Name</label>
+                                <input type="text" id="dialogLastName" class="form-control" placeholder="Enter last name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dialogEmail">Email</label>
+                            <input type="email" id="dialogEmail" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dialogPassword">Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="dialogPassword" class="form-control" placeholder="Create a password" required>
+                                <button type="button" class="password-toggle" aria-label="Toggle password visibility"><i class="fas fa-eye"></i></button>
+                            </div>
+                            <div class="password-strength" id="dialogPasswordStrength">
+                                <div class="password-strength-bar"></div>
+                            </div>
+                            <div class="password-hint" id="dialogPasswordHint">Use 8+ characters with a mix of letters, numbers & symbols</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dialogConfirmPassword">Confirm Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="dialogConfirmPassword" class="form-control" placeholder="Confirm your password" required>
+                                <button type="button" class="password-toggle" aria-label="Toggle password visibility"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dialogUniversity">University</label>
+                            <div class="filter-input-wrapper">
+                                <input id="dialogUniversity" type="text" class="form-control" placeholder="Type to filter universities..." required>
+                                <div id="dialogUniversityDropdown" class="filter-dropdown-list"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dialogCourse">Your Course</label>
+                            <div class="filter-input-wrapper">
+                                <input id="dialogCourse" type="text" class="form-control" placeholder="Type to filter courses..." required>
+                                <div id="dialogCourseDropdown" class="filter-dropdown-list"></div>
+                            </div>
+                        </div>
+                        <div class="form-group agree-terms">
+                            <input type="checkbox" id="dialogAgreeTerms" required>
+                            <label for="dialogAgreeTerms">I agree to the <a href="#" id="signupDialogTermsLink">Terms of Service</a> and <a href="#" id="signupDialogPrivacyLink">Privacy Policy</a></label>
+                        </div>
+                        <div class="signup-page-actions">
+                            <button type="button" class="btn btn-outline" id="cancelSignup">Cancel</button>
+                            <button type="submit" class="btn btn-primary" id="submitSignup">Create Account</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="signup-page-right">
+                <div class="signup-visual">
+                    <div class="login-info-panel">
+                        <div class="login-info-header">
+                            <div class="login-logo">
+                                <img src="images/logo.svg" alt="College Sangi logo" class="app-logo-sm">
+                                <span>College Sangi</span>
+                            </div>
+                            <h1>Connect, Collaborate, Succeed</h1>
+                            <p>Your all-in-one platform for university life. Join course discussions, buy and sell textbooks, discover campus events, and connect with fellow students.</p>
+                        </div>
+                        <ul class="login-features">
+                            <li><i class="fas fa-check-circle"></i> Course Forums & Discussions</li>
+                            <li><i class="fas fa-check-circle"></i> Textbook Marketplace</li>
+                            <li><i class="fas fa-check-circle"></i> Campus Event Finder</li>
+                            <li><i class="fas fa-check-circle"></i> Student Community</li>
+                            <li><i class="fas fa-check-circle"></i> Question Bank with Photos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Privacy Policy Modal -->
+    <div class="dialog-overlay" id="signupPrivacyModal">
+        <div class="dialog-box" style="max-width: 700px; max-height: 85vh;">
+            <div class="dialog-header">
+                <h3 class="dialog-title">Privacy Policy</h3>
+                <button class="dialog-close" id="closeSignupPrivacy">&times;</button>
+            </div>
+            <div class="dialog-body" style="max-height: 70vh; overflow-y: auto;">
+                <h4 style="color: var(--primary); margin-top: 15px; margin-bottom: 10px;">Privacy Policy for College Sangi</h4>
+                <p style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.5;"><strong>Last Updated:</strong> December 4, 2024</p>
+
+                <div class="privacy-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">1. Introduction and Commitment to Privacy</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">Welcome to College Sangi ("we," "our," "us," or "Company"). We are deeply committed to protecting your privacy and ensuring a transparent relationship with our users. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our mobile applications, and engage with our services.</p>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">Please read this Privacy Policy carefully. By accessing or using College Sangi, you acknowledge that you have read, understood, and agree to be bound by all the terms of this Privacy Policy. If you do not agree with our practices, please do not use our services.</p>
+                </div>
+
+                <div class="privacy-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">2. Information We Collect</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">We collect personal information that you voluntarily provide and information collected automatically.</p>
+
+                    <h6 style="color: var(--primary); font-size: 0.95rem; margin: 12px 0 8px 0;">2.1 Personal Information You Provide</h6>
+                    <ul style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">
+                        <li><strong>Account Information:</strong> Name, email, phone number, password, profile picture</li>
+                        <li><strong>Educational Information:</strong> University, course, year of study</li>
+                        <li><strong>Contact Information:</strong> Address, city, country</li>
+                        <li><strong>User-Generated Content:</strong> Posts, comments, questions, study materials</li>
+                        <li><strong>Payment Information:</strong> For marketplace transactions</li>
+                    </ul>
+
+                    <h6 style="color: var(--primary); font-size: 0.95rem; margin: 12px 0 8px 0;">2.2 Information Collected Automatically</h6>
+                    <ul style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">
+                        <li><strong>Device Information:</strong> Device type, operating system, browser</li>
+                        <li><strong>Log Data:</strong> IP address, access times, pages visited</li>
+                        <li><strong>Cookies:</strong> Session and persistent cookies for functionality</li>
+                    </ul>
+                </div>
+
+                <div class="privacy-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">3. How We Use Your Information</h5>
+                    <ul style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">
+                        <li>Providing and improving our services</li>
+                        <li>Enabling communication and collaboration</li>
+                        <li>Personalizing your experience</li>
+                        <li>Detecting fraud and maintaining security</li>
+                        <li>Complying with legal obligations</li>
+                    </ul>
+                </div>
+
+                <div class="privacy-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">4. Data Sharing</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">Your profile information and posts are visible to other members. We share information with service providers, payment processors, and when required by law.</p>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;"><strong>Important:</strong> We DO NOT sell your personal information to third parties.</p>
+                </div>
+
+                <div class="privacy-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">5. Your Privacy Rights</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">You have the right to:</p>
+                    <ul style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">
+                        <li>Access your personal data</li>
+                        <li>Correct inaccurate information</li>
+                        <li>Request deletion of your data</li>
+                        <li>Withdraw your consent</li>
+                        <li>Lodge a complaint with authorities</li>
+                    </ul>
+                </div>
+
+                <div class="privacy-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">6. Contact Us</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;"><strong>College Sangi Privacy Team</strong><br>
+                    Email: privacy@collegesangi.net<br>
+                    Phone: +977-9807627575<br>
+                    Address: Campus Chowk, Janakpur, Nepal</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Terms Modal -->
+    <div class="dialog-overlay" id="signupTermsModal">
+        <div class="dialog-box" style="max-width: 700px; max-height: 85vh;">
+            <div class="dialog-header">
+                <h3 class="dialog-title">Terms of Service</h3>
+                <button class="dialog-close" id="closeSignupTerms">&times;</button>
+            </div>
+            <div class="dialog-body" style="max-height: 70vh; overflow-y: auto;">
+                <h4 style="color: var(--primary); margin-top: 15px; margin-bottom: 10px;">Terms of Service for College Sangi</h4>
+                <p style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.5;"><strong>Last Updated:</strong> December 4, 2024</p>
+                
+                <div class="terms-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">1. Acceptance of Terms</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">By accessing and using College Sangi, you accept and agree to be bound by the terms, conditions, and notices contained herein. If you do not agree to abide by the above, please do not use this service.</p>
+                </div>
+                
+                <div class="terms-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">2. Use License</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">Permission is granted to temporarily download one copy of materials from College Sangi for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+                    <ul style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">
+                        <li>Modify or copy the materials</li>
+                        <li>Use the materials for any commercial purpose</li>
+                        <li>Attempt to decompile or reverse engineer any software</li>
+                        <li>Remove any copyright or other proprietary notices</li>
+                        <li>Transfer the materials to another person or "mirror" the materials on any other server</li>
+                    </ul>
+                </div>
+                
+                <div class="terms-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">3. Disclaimer</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">The materials on College Sangi are provided on an 'as-is' basis. College Sangi makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+                </div>
+                
+                <div class="terms-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">4. Limitations</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">In no event shall College Sangi or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on College Sangi, even if College Sangi or an authorized representative has been notified orally or in writing of the possibility of such damage.</p>
+                </div>
+                
+                <div class="terms-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">5. User Accounts and Responsibilities</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">To use certain features of College Sangi, you may be required to create an account. You are responsible for:</p>
+                    <ul style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">
+                        <li>Providing accurate, current, and complete information</li>
+                        <li>Maintaining the confidentiality of your password</li>
+                        <li>All activities that occur under your account</li>
+                        <li>Notifying College Sangi immediately of any unauthorized use</li>
+                    </ul>
+                </div>
+                
+                <div class="terms-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">6. User Content</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">You retain all rights to any content you submit, post, or display on College Sangi. By posting content, you grant College Sangi a non-exclusive, worldwide, royalty-free license to use, copy, reproduce, process, adapt, modify, publish, transmit, display and distribute such content in any media or medium.</p>
+                </div>
+                
+                <div class="terms-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">7. Prohibited Activities</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">You agree not to:</p>
+                    <ul style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">
+                        <li>Violate any applicable laws or regulations</li>
+                        <li>Infringe on intellectual property rights</li>
+                        <li>Harass, threaten, or defame any person</li>
+                        <li>Post or transmit illegal content</li>
+                        <li>Spam or send unsolicited messages</li>
+                        <li>Interfere with network security</li>
+                        <li>Engage in unauthorized access</li>
+                    </ul>
+                </div>
+                
+                <div class="terms-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">8. Third-Party Links</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">College Sangi may contain links to third-party websites. We are not responsible for the contents of any linked-to external site. The inclusion of any link does not imply endorsement by College Sangi of the site. Use of any such linked website is at the user's own risk.</p>
+                </div>
+                
+                <div class="terms-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">9. Modifications to Terms</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">College Sangi may revise these terms of service at any time without notice. By using this website, you are agreeing to be bound by the then current version of these terms of service.</p>
+                </div>
+                
+                <div class="terms-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">10. Governing Law</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">These terms and conditions are governed by and construed in accordance with the laws of Nepal, and you irrevocably submit to the exclusive jurisdiction of the courts located in Janakpur, Nepal.</p>
+                </div>
+                
+                <div class="terms-section">
+                    <h5 style="color: var(--primary); font-size: 1rem; margin: 15px 0 10px 0;">11. Contact Information</h5>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;"><strong>College Sangi Legal Team</strong><br>
+                    Email: legal@collegesangi.net<br>
+                    Phone: +977-9807627575<br>
+                    Address: Campus Chowk, Janakpur, Nepal</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="deleteProfileModal" class="delete-profile-modal"></div>
+    <div class="post-modal" id="postModal"></div>
+    <div class="photo-view-modal" id="photoViewModal"></div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage"></span>
+    </div>
+
+    <!-- External JavaScript Files -->
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/ui.js"></script>
+    
+    <!-- Framework Core Modules -->
+    <script src="js/core/state.js"></script>
+    <script src="js/core/router.js"></script>
+    
+    <!-- Component Pages Controllers -->
+    <script src="js/pages/auth-forgot.js"></script>
+    <script src="js/pages/notifications.js"></script>
+    <script src="js/pages/support.js"></script>
+    <script src="js/pages/home.js"></script>
+    <script src="js/pages/forum.js"></script>
+    <script src="js/pages/marketplace.js"></script>
+    <script src="js/pages/events.js"></script>
+    <script src="js/pages/question-bank.js"></script>
+    <script src="js/pages/materials.js"></script>
+    <script src="js/pages/profile.js"></script>
+    
+    <!-- Central Application Entry Point -->
+    <script src="js/main.js"></script>
+</body>
+</html>
